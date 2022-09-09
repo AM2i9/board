@@ -8,23 +8,23 @@ import { onMount } from "svelte";
     let scrollTop = 0;
     let tablediv;
     let tablebody;
-    let scrolling = false;
+    let lnbreak;
+    let scrolling = true;
     
     const scrollCallback = () => {
-        if (tablediv != null && tablebody != null) {
-            scrollTop += speed;
-
-            if (scrollTop == 0) {
+        if (tablediv != null && tablebody != null && lnbreak != null) {
+            if (tablebody.clientHeight + 41 < tablediv.clientHeight) {
                 scrolling = false;
             } else {
+                scrollTop += speed;
+
                 scrolling = true;
 
-                if (scrollTop >= tablebody.scrollHeight) {
+                if (scrollTop >= tablebody.scrollHeight + lnbreak.clientHeight) {
                     scrollTop = 0;
                 }
 
                 tablediv.scrollTop = scrollTop;
-
             }    
         }
         window.requestAnimationFrame(scrollCallback);
@@ -32,12 +32,11 @@ import { onMount } from "svelte";
 
     onMount(() => {
         window.requestAnimationFrame(scrollCallback);
-        console.log("test")
     })
 
 </script>
 
-<div bind:this={tablediv} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;background:lightgray;">
+<div bind:this={tablediv} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;">
     <table class="table table-striped">
         <thead style="top:0;position:sticky;background-color:white;">
         <tr>
@@ -58,7 +57,7 @@ import { onMount } from "svelte";
             {/each}
         </tbody>
         {#if scrolling}
-        <br>
+        <br bind:this={lnbreak}>
         <tbody id="body">
             {#each data as values, index}
             <tr>
