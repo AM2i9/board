@@ -3,6 +3,7 @@ import { onMount } from "svelte";
 
 
     export let speed;
+    export let startDelay = 2;
     export let data;
     export let headers;
     let scrollTop = 0;
@@ -10,6 +11,7 @@ import { onMount } from "svelte";
     let tablebody;
     let lnbreak;
     let scrolling = true;
+    let scroll_pause = null;
     
     const scrollCallback = () => {
         if (tablediv != null && tablebody != null && lnbreak != null) {
@@ -30,13 +32,22 @@ import { onMount } from "svelte";
         window.requestAnimationFrame(scrollCallback);
     }
 
+    const pauseScroll = (e) => {
+        scrolling = false;
+        clearTimeout(scroll_pause);
+        scroll_pause = window.setTimeout(() => {
+            scrollTop = tablediv.scrollTop;
+            scrolling = true;
+        }, (startDelay * 2 )* 1000)
+    }
+
     onMount(() => {
-        window.requestAnimationFrame(scrollCallback);
+        window.setTimeout(() => window.requestAnimationFrame(scrollCallback), startDelay * 1000);
     })
 
 </script>
 
-<div bind:this={tablediv} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;">
+<div bind:this={tablediv} on:wheel={pauseScroll} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;">
     <table class="table table-striped">
         <thead style="top:0;position:sticky;background-color:white;">
         <tr>
