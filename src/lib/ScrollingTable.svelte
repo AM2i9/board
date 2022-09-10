@@ -50,12 +50,12 @@ import { onMount } from "svelte";
 <div bind:this={tablediv} on:wheel={pauseScroll} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;">
     <table class="table table-striped">
         <thead style="top:0;position:sticky;background-color:white;">
-        <tr>
-            <th scope="col">#</th>
-            {#each headers as header}
-                <th scope="col">{header}</th>
-            {/each}
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                {#each headers as header}
+                    <th scope="col">{header}</th>
+                {/each}
+            </tr>
         </thead>
         <tbody bind:this={tablebody} id="body">
             {#each data as values, index}

@@ -5,44 +5,45 @@
 <script>
     import ScrollingTable from "./lib/ScrollingTable.svelte";
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const sheet_id = urlParams.get("s")
 
-    let headers = [];
-    let rows = [];
-
-    let num_rows = 0;
-    let num_cols = 0;
-
-    let done = false;
+    let table_data = null;
 
     const onChartsLoaded = () =>{
         google.charts.load("current", {packages:['corechart']});
         google.charts.setOnLoadCallback(() => {
                     // @ts-ignore
-            let query = new google.visualization.Query('', {sendMethod: 'auto'});
+            let query = new google.visualization.Query(`https://docs.google.com/spreadsheets/d/${sheet_id}/edit`, {sendMethod: 'auto'});
             query.setQuery('SELECT *');
+            query.setRefreshInterval(10);
             query.send((resp) => {
                 let data = resp.getDataTable();
-                num_rows = data.getNumberOfRows();
-                num_cols = data.getNumberOfColumns();
+                let num_rows = data.getNumberOfRows();
+                let num_cols = data.getNumberOfColumns();
+                
+                let headers = [];
+                let rows = [];
 
-                for(let i=0; i<num_cols;i++) {
+                for(let i=0; i < num_cols;i++) {
                     headers.push(data.getColumnLabel(i))
                 }
 
-                for(let r=0; r<num_rows;r++) {
+                for(let r=0; r < num_rows;r++) {
                     let row = [];
-                    for(let c=0; c<num_cols;c++) {
+                    for(let c=0; c < num_cols;c++) {
                         row.push(data.getValue(r, c))
                     }
                     rows.push(row);
                 }
-                done = true;
+                table_data = {headers: headers, rows: rows};
+                console.log(table_data)
             })
         })
     }
 </script>
 <div style="width:50%">
-    {#if done}
-    <ScrollingTable data={rows} headers={headers} speed={0.2} />
+    {#if table_data != null}
+        <ScrollingTable data={table_data.rows} headers={table_data.headers} speed={0.2} />
     {/if}
 </div>
