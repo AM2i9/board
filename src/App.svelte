@@ -7,15 +7,20 @@
     import ScrollingTable from "./lib/ScrollingTable.svelte";
 
     const urlParams = new URLSearchParams(window.location.search);
-    const sheet_id = urlParams.get("s")
+    const sheet_id = urlParams.get("s");
+    const other_data = urlParams.has("c") ? JSON.parse(atob(urlParams.get("c"))) : {};
+
+    console.log(other_data);
 
     let table_data = null;
 
     const onChartsLoaded = () =>{
         if (sheet_id != null) {
+            // @ts-ignore
             google.charts.load("current", {packages:['corechart']});
+            // @ts-ignore
             google.charts.setOnLoadCallback(() => {
-                        // @ts-ignore
+                // @ts-ignore
                 let query = new google.visualization.Query(`https://docs.google.com/spreadsheets/d/${sheet_id}/edit`, {sendMethod: 'auto'});
                 query.setQuery('SELECT *');
                 query.setRefreshInterval(10);
@@ -48,6 +53,9 @@
     {#if sheet_id == null}
         <About />
     {:else}
+        {#if other_data["title"]}
+            <h1>{other_data.title}</h1>
+        {/if}
         {#if table_data != null}
             <ScrollingTable data={table_data.rows} headers={table_data.headers} speed={0.2} />
         {:else}
