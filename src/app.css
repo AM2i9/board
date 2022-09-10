@@ -13,6 +13,20 @@
 
 .main-container {
   width:75%;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 1px 1px 8px 1px #969696;
+}
+
+@media only screen
+  and (max-device-width: 667px),
+  (max-device-width: 736px),
+  (max-device-width: 812px) {
+
+  .main-container {
+    width: 98%;
+  }
+  
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -28,6 +42,8 @@
 .scrolling-table-container {
   height:75vh;
   overflow:scroll;
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }
 
 .scrolling-table.head {
