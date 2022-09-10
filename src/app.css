@@ -3,7 +3,7 @@
 }
 
 #app {
-  height:100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,12 +11,27 @@
   justify-content: center;
 }
 
+.main-container {
+  width:75%;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+  width: 2px;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: -ms-autohiding-scrollbar;  /* IE and Edge */
+  scrollbar-width: thin;  /* Firefox */
+}
+
+.scrolling-table-container {
+  height:75vh;
+  overflow:scroll;
+}
+
+.scrolling-table.head {
+  top:0;
+  position:sticky;
+  background-color:white;
 }

@@ -47,7 +47,7 @@ import { onMount } from "svelte";
 
 </script>
 
-<div bind:this={tablediv} on:wheel={pauseScroll} id="scrolling-table" class="hide-scrollbar table-responsive" style="height:75vh;overflow:scroll;">
+<div bind:this={tablediv} on:wheel={pauseScroll} id="scrolling-table" class="hide-scrollbar table-responsive scrolling-table-container">
     <table class="table table-striped">
         <thead style="top:0;position:sticky;background-color:white;">
             <tr>
