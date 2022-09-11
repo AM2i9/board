@@ -81,7 +81,7 @@
 </div>
 
 {#if path == "/board" && sheet_id != null && other_data.qr}
-    <QrCode url={`${self.location.origin}/?s=${sheet_id}&c=${(() => {
+    <QrCode url={`${self.location.origin}/board/?s=${sheet_id}&c=${(() => {
         let new_data = Object.assign({}, other_data);
         new_data.qr = false;
         new_data.scroll_disable = true;

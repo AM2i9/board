@@ -24,7 +24,7 @@
             qr: form.elements.qr.checked || undefined
         };
 
-        let new_url = `${self.location.origin}/?s=${sheet_id}&c=${btoa(JSON.stringify(data))}`;
+        let new_url = `${self.location.origin}/board/?s=${sheet_id}&c=${btoa(JSON.stringify(data))}`;
 
         self.location.href = new_url;
     }
