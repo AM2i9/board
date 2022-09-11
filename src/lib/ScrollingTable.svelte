@@ -54,7 +54,6 @@ import { onMount } from "svelte";
     <table class="table table-striped">
         <thead style="top:0;position:sticky;background-color:white;">
             <tr>
-                <th scope="col">#</th>
                 {#each headers as header}
                     <th scope="col">{header}</th>
                 {/each}
@@ -63,7 +62,6 @@ import { onMount } from "svelte";
         <tbody bind:this={tablebody} id="body">
             {#each data as values, index}
             <tr>
-                <th scope="row">{index}</th>
                 {#each values as value}
                     <td>{value}</td>
                 {/each}
