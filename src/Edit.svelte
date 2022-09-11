@@ -33,15 +33,13 @@
 
 <form bind:this={form} on:submit|preventDefault={formSubmit}>
     <label for="sheetid">Sheet ID (Required)</label><br>
-    <input id="sheetid" type="text" required><br>
-    <br>
+    <input class="form-control" id="sheetid" type="text" required><br>
+    
     <label for="title">Title</label><br>
-    <input id="title" type="text"><br>
-    <br>
-    <label for="heading">Heading</label><br>
-    <input id="heading" type="text"><br>
+    <input class="form-control" id="title" type="text"><br>
 
-    <br>
+    <label for="heading">Heading</label><br>
+    <input class="form-control" id="heading" type="text"><br>
 
     <label for="text_align">Text Alignment</label><br>
 
@@ -56,10 +54,10 @@
 
     <br>
 
+    <input class="form-check-label" id="qr" type="checkbox" name="qr" value="true">
     <label for="qr">Show QR code</label><br>
-    <input id="qr" type="checkbox" name="qr" value="true"><br>
     
     <br>
 
-    <input type="submit" value="Save">
+    <input class="btn btn-primary" type="submit" value="Save">
 </form>
