@@ -2,6 +2,7 @@
   "name": "board",
   "private": true,
   "version": "0.0.0",
+  "author": "Patrick Brennan <brennanpatrick20@gmail.com> (AM2i9)",
   "type": "module",
   "license": "GPL-3.0-or-later",
   "scripts": {
