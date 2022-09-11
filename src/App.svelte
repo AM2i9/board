@@ -4,17 +4,20 @@
 
 <script>
     import About from "./About.svelte";
-    import QrCode from "./lib/QRCode.svelte";
+    import Edit from "./Edit.svelte";
     import ScrollingTable from "./lib/ScrollingTable.svelte";
 
-    const urlParams = new URLSearchParams(window.location.search);
+    import QrCode from "./lib/QRCode.svelte";
+
+    const path = self.location.pathname;
+    const urlParams = new URLSearchParams(self.location.search);
     const sheet_id = urlParams.get("s");
     const other_data = urlParams.has("c") ? JSON.parse(atob(urlParams.get("c"))) : {};
 
     let table_data = null;
 
     const onChartsLoaded = () =>{
-        if (sheet_id != null) {
+        if (sheet_id != null && path == "/") {
             // @ts-ignore
             google.charts.load("current", {packages:['corechart']});
             // @ts-ignore
@@ -51,24 +54,28 @@
 </script>
 
 <div class="main-container">
-    {#if sheet_id == null}
-        <About />
-    {:else}
-        {#if other_data.title}
-            <h1 style:text-align={other_data.text_align}>{other_data.title}</h1>
-        {/if}
-        {#if other_data.heading}
-            <h5 style:text-align={other_data.text_align}>{other_data.heading}</h5>
-        {/if}
-        {#if table_data != null}
-            <ScrollingTable data={table_data.rows} headers={table_data.headers} speed={other_data.scroll_disable ? 0 : 0.2} />
+    {#if path == "/"}
+        {#if sheet_id == null}
+            <About />
         {:else}
-        <p>No data</p>
+            {#if other_data.title}
+                <h1 style:text-align={other_data.text_align}>{other_data.title}</h1>
+            {/if}
+            {#if other_data.heading}
+                <h5 style:text-align={other_data.text_align}>{other_data.heading}</h5>
+            {/if}
+            {#if table_data != null}
+                <ScrollingTable data={table_data.rows} headers={table_data.headers} speed={other_data.scroll_disable ? 0 : 0.2} />
+            {:else}
+            <p>No data</p>
+            {/if}
         {/if}
+    {:else if path == "/edit"}
+        <Edit sheet_id={sheet_id} data={other_data}/>
     {/if}
 </div>
 
-{#if sheet_id != null && other_data.qr}
+{#if path == "/" && sheet_id != null && other_data.qr}
     <QrCode url={`${self.location.origin}/?s=${sheet_id}&c=${(() => {
         let new_data = Object.assign({}, other_data);
         new_data.qr = false;
