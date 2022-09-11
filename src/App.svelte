@@ -12,7 +12,7 @@
     let path = self.location.pathname;
 
     if (path.endsWith('/')) {
-        path = path.substring(0, -1)
+        path = path.substring(0, path.length - 1)
     }
 
     const urlParams = new URLSearchParams(self.location.search);
