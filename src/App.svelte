@@ -22,7 +22,7 @@
     let table_data = null;
 
     const onChartsLoaded = () =>{
-        if (sheet_id != null && path == "/") {
+        if (sheet_id != null && path == "/board") {
             // @ts-ignore
             google.charts.load("current", {packages:['corechart']});
             // @ts-ignore
