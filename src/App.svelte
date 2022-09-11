@@ -75,7 +75,7 @@
     {/if}
 </div>
 
-{#if path == "/" && sheet_id != null && other_data.qr}
+{#if path == "/board/" && sheet_id != null && other_data.qr}
     <QrCode url={`${self.location.origin}/?s=${sheet_id}&c=${(() => {
         let new_data = Object.assign({}, other_data);
         new_data.qr = false;
