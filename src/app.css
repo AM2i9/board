@@ -9,6 +9,7 @@
   align-items: center;
   align-content: center;
   justify-content: center;
+  background-color: azure;
 }
 
 .main-container {
@@ -16,6 +17,7 @@
   padding: 30px;
   border-radius: 25px;
   box-shadow: 1px 1px 8px 1px #969696;
+  background-color: white;
 }
 
 @media only screen

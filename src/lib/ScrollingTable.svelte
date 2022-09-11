@@ -10,7 +10,7 @@ import { onMount } from "svelte";
     let tablediv;
     let tablebody;
     let lnbreak;
-    let scrolling = true;
+    let scrolling = false;
     let scroll_pause = null;
     
     const scrollCallback = () => {
@@ -42,7 +42,10 @@ import { onMount } from "svelte";
     }
 
     onMount(() => {
-        window.setTimeout(() => window.requestAnimationFrame(scrollCallback), startDelay * 1000);
+        if (speed > 0) {
+            scrolling = true
+            window.setTimeout(() => window.requestAnimationFrame(scrollCallback), startDelay * 1000);
+        }
     })
 
 </script>
