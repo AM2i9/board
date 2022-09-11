@@ -54,7 +54,7 @@
 </script>
 
 <div class="main-container">
-    {#if path == "/"}
+    {#if path == "/board/"}
         {#if sheet_id == null}
             <About />
         {:else}
@@ -70,7 +70,7 @@
             <p>No data</p>
             {/if}
         {/if}
-    {:else if path == "/edit"}
+    {:else if path == "/board/edit"}
         <Edit sheet_id={sheet_id} data={other_data}/>
     {/if}
 </div>
