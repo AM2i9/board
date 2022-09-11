@@ -9,7 +9,12 @@
 
     import QrCode from "./lib/QRCode.svelte";
 
-    const path = self.location.pathname;
+    let path = self.location.pathname;
+
+    if (path.endsWith('/')) {
+        path = path.substring(0, -1)
+    }
+
     const urlParams = new URLSearchParams(self.location.search);
     const sheet_id = urlParams.get("s");
     const other_data = urlParams.has("c") ? JSON.parse(atob(urlParams.get("c"))) : {};
@@ -54,7 +59,7 @@
 </script>
 
 <div class="main-container">
-    {#if path == "/board/"}
+    {#if path == "/board"}
         {#if sheet_id == null}
             <About />
         {:else}
@@ -75,7 +80,7 @@
     {/if}
 </div>
 
-{#if path == "/board/" && sheet_id != null && other_data.qr}
+{#if path == "/board" && sheet_id != null && other_data.qr}
     <QrCode url={`${self.location.origin}/?s=${sheet_id}&c=${(() => {
         let new_data = Object.assign({}, other_data);
         new_data.qr = false;
