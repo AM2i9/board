@@ -63,7 +63,7 @@ import { onMount } from "svelte";
             {#each data as values, index}
             <tr>
                 {#each values as value}
-                    <td>{value}</td>
+                    <td>{value != null ? value : '-'}</td>
                 {/each}
             </tr>
             {/each}
@@ -73,9 +73,8 @@ import { onMount } from "svelte";
         <tbody id="body">
             {#each data as values, index}
             <tr>
-                <th scope="row">{index}</th>
                 {#each values as value}
-                    <td>{value}</td>
+                    <td>{value != null ? value : '-'}</td>
                 {/each}
             </tr>
             {/each}
